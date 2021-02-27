@@ -1,39 +1,101 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef struct node{
+	int data;
+	struct node *nxt;
+}node;
 
-float AVE[5]={0,0,0,0,0};
-float AVEmin;
-int i;
-int AVESrange=5;
-
-
-float Average(float T,int class,float* ptr);
-
-
-int main(){
-	float input;
-	while(1){
-		scanf("%f",&input);
-		Average(input,1,AVE);
-		for(int k=0;k<5;k++)printf("%f\n",AVE[k]);
-		printf("%f\n",AVEmin);
-	}
-return 0;
+node *alloc(int data,node *nxt){
+	node *tmp=(node *)malloc(sizeof(node));
+	tmp->data=data;
+	tmp->nxt=nxt;
+	return tmp;
 }
 
-float Average(float T,int class,float* ptr){
-float average=0;
-if(class=1){
- while(1){
-  if(ptr[i]==0){ptr[i]=T;
-		break;}
-  if(i==AVESrange){
-	for(int o=0;o<AVESrange-1;o++)ptr[o] = ptr[o+1];
-	ptr[AVESrange-1]=T; 
-	break;}
-  i++;}
-for(int p=0;p<5;p++)average += ptr[p];
-AVEmin = average /5;}
+node *input(){
+	node *head=NULL;
+	while(1){
+		int input;
+		scanf("%d",&input);
+		if(input==10)break;
+		head=alloc(input,head);
+	}
+	return head;
+}
+
+node *add(node *tmp1,int l1,node *tmp2,int l2){
+	int a;
+	int b;
+	int carry=0;
+	if(l1>l2){
+		for(int i=1;i<=l1;i++){
+			
+			if(i>l2){
+				if(carry==1)a=tmp1->data+1;
+				carry=0;
+			}
+			else{
+				if(carry==1){
+					a=tmp1->data+tmp2->data+1;
+					carry=0;
+				}
+				else a=tmp1->data+tmp2->data;
+			}
+			
+			if(a>9){
+				carry=1;
+				tmp1->data = a%10;
+			}
+			else tmp1->data=a;
+
+			tmp1=tmp1->nxt;
+			tmp2=tmp2->nxt;
+			if(tmp1->nxt==NULL&&carry==1){
+				node *t = (node *)malloc(sizeof(node));
+				tmp1->data=1;
+				tmp1->nxt=t;
+				t->nxt=NULL;
+			}
+		}
+	}
+	else if(l2>l1){}
+	else{}
+}
+
+int main(){
+	node *tmp1;
+	int l1=0;
+	node *tmp2;
+	int l2=0;
+	tmp1 = input();
+	tmp2 = input();
+	while(tmp1!=NULL){
+		printf("%d ->",tmp1->data);
+		tmp1=tmp1->nxt;
+		l1++;
+	}
+	printf("NULL");
+	while(tmp2!=NULL){
+		printf("%d ->",tmp2->data);
+		tmp2=tmp2->nxt;
+		l2++;
+	}
+	printf("NULL");
+	add(tmp1,l1,tmp2,l2);
+	if(l1>=l2){
+		while(tmp1!=NULL){
+			printf("%d",tmp1->data);
+			tmp1=tmp1->nxt;
+		}
+		printf("\n");
+	}
+	else if(l2>l1){
+		while(tmp2!=NULL){
+			printf("%d",tmp2->data);
+			tmp2=tmp2->nxt;
+		}
+		printf("\n");
+	}	
 return 0;
 }
