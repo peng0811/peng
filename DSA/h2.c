@@ -2,22 +2,13 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-void debug(){
-    while(1){
-        int p;
-        scanf("\n%d",&p);
-        if(p==1)break;
-    }
-}
-
-
 
 int *input(int,int*);
 bool recur(char**,int*,int*,int);
 bool detect(char **,int);
 bool valid(char **,int*,int *,int);
 
-int main(){
+char **main(){
 char **ptr=0;
 char *ptr1=0;
 int *low_lim=0;
@@ -28,7 +19,6 @@ int LAST=0;
 int COL;
 int LOW;
 /*decide COL/LOW*/
-printf("input COL and LOW:");
 scanf("%d",&COL);
 scanf("%d",&LOW);
 ptr1=malloc(sizeof(char)*(COL*LOW));
@@ -37,51 +27,28 @@ for(int i=0;i<COL*LOW;i++)ptr1[i]='x';
 for(int j=0;j<COL;j++)ptr[j]=&ptr1[j*COL];
 /**/
 /*decide limit*/
-printf("input low limit:\n");
+//printf("input low limit:\n");
 low_lim=input(LOW,&lownum);
-printf("input col limit:\n");
+//printf("input col limit:\n");
 col_lim=input(COL,&colnum);
 /**/
-while(LAST<lownum){
-    for(int i=0;i<=low_lim[LAST];i++){
-        printf("%d",low_lim[LAST+i]);
-    }
-    printf("\n");
-    LAST=LAST+low_lim[LAST]+1;
-}
-LAST =0;
-while(LAST<colnum){
-    for(int i=0;i<=col_lim[LAST];i++){
-        printf("%d",col_lim[LAST+i]);
-    }
-    printf("\n");
-    LAST=LAST+col_lim[LAST]+1;
-}
-    //int lowlim[10]={1,4,1,2,1,3,1,2,1,4};
-    //int collim[16]={2,1,1,2,3,1,3,1,1,1,2,1,3,2,1,1};
-    //char **ptr=0;
-    //char **ptr1=0;
-    //char p[5][5]={{'_','o','o','o','o'},
-                    //{'o','o','_','_','_'},
-                    //{'_','o','o','o','_'},
-                    //{'_','_','_','o','o'},
-                    //{'o','o','o','o','_'}};
-    //char p1[5][5]={{'x','x','x','x','x'},
-                    //{'x','x','x','x','x'},
-                    //{'x','x','x','x','x'},
-                    //{'x','x','x','x','x'},
-                    //{'x','x','x','x','x'}};
-
-    //ptr=malloc(sizeof(char*)*COL);
-    //for(int i=0;i<COL;i++)ptr[i]=p[i];
-
-    //ptr1=malloc(sizeof(char*)*COL);
-    //for(int i=0;i<COL;i++){
-        //ptr1[i]=p1[i];
+//while(LAST<lownum){
+//  for(int i=0;i<=low_lim[LAST];i++){
+        //printf("%d",low_lim[LAST+i]);
     //}
-
-
+    //printf("\n");
+    //LAST=LAST+low_lim[LAST]+1;
+//}
+//LAST =0;
+//while(LAST<colnum){
+    //for(int i=0;i<=col_lim[LAST];i++){
+        //printf("%d",col_lim[LAST+i]);
+    //}
+    //printf("\n");
+    //LAST=LAST+col_lim[LAST]+1;
+//}
 recur(ptr,low_lim,col_lim,COL);
+return ptr;
 }
 
 int *input(int count,int *size){
@@ -89,11 +56,11 @@ int *input(int count,int *size){
     int NUM=0;
     for(int i=1;i<=count;i++){
         int input;
-        printf("input %d limit numbers:",count);
+        //printf("input %d limit numbers:",count);
         scanf("%d",&input);
         ptr=realloc(ptr,sizeof(int)*(input+1+NUM));
         ptr[NUM]=input;
-        printf("input limit:\n");
+        //printf("input limit:\n");
         for(int i=0;i<input;i++){
             scanf("%d",&ptr[NUM+1+i]);
         }
