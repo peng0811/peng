@@ -1,0 +1,14 @@
+#include "mbed.h"
+ 
+PwmOut led1(PWM_OUT);
+ 
+int main() {
+    float duty=0;
+    led1.period(0.05f);
+    while(1) {
+        led1.write(duty);
+        wait_us(1000);
+        duty = duty +0.1;
+        if(duty >= 1 )duty=0;
+    }
+}
